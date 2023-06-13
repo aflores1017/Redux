@@ -14,7 +14,8 @@ export function Counter() {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
-  const [backgroundColor, setBackgroundColor] = useState('#FFFFFF'); // Add this line
+  const [backgroundColor, setBackgroundColor] = useState('#FFFFFF');
+  const [name, setName] = useState(''); 
 
   const incrementValue = Number(incrementAmount) || 0;
 
@@ -25,7 +26,7 @@ export function Counter() {
   };
 
   return (
-    <div style={{ backgroundColor }}> {/* Add this line */}
+    <div style={{ backgroundColor }}>
       <div className={styles.row}>
         <button
           className={styles.button}
@@ -50,11 +51,17 @@ export function Counter() {
           value={incrementAmount}
           onChange={(e) => setIncrementAmount(e.target.value)}
         />
+        <input
+          className={styles.textbox}
+          aria-label="Enter name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <button
           className={styles.button}
           onClick={() => {
             dispatch(incrementByAmount(incrementValue));
-            updateBackgroundColor(); // Add this line
+            updateBackgroundColor();
           }}
         >
           Add Amount
@@ -63,7 +70,7 @@ export function Counter() {
           className={styles.asyncButton}
           onClick={() => {
             dispatch(incrementAsync(incrementValue));
-            updateBackgroundColor(); // Add this line
+            updateBackgroundColor();
           }}
         >
           Add Async
@@ -72,12 +79,13 @@ export function Counter() {
           className={styles.button}
           onClick={() => {
             dispatch(incrementIfOdd(incrementValue));
-            updateBackgroundColor(); // Add this line
+            updateBackgroundColor();
           }}
         >
           Add If Odd
         </button>
       </div>
+      {name && <p>Hello, {name}!</p>} {/* Display the name if it is not empty */}
     </div>
   );
 }
